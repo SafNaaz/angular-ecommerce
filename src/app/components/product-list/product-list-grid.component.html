@@ -1,8 +1,8 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
-      <h4>Category: {{ currentCategoryName }}</h4>
-      <hr />
+      <h4 *ngIf="currentCategoryName">Category: {{ currentCategoryName }}</h4>
+      <hr *ngIf="currentCategoryName"/>
       <div class="row">
         <div *ngFor="let tempProduct of products" class="col-md-3 col-sm-4">
           <div class="product-box">
