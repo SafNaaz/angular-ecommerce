@@ -4,7 +4,7 @@
       <h4>Category: {{ currentCategoryName }}</h4>
       <hr />
       <div class="row">
-        <div *ngFor="let tempProduct of products" class="col-md-3">
+        <div *ngFor="let tempProduct of products" class="col-md-3 col-sm-4">
           <div class="product-box">
             <img src="{{ tempProduct.imageUrl }}" alt="" />
             <h1>{{ tempProduct.name }}</h1>
