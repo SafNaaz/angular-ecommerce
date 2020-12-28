@@ -3,6 +3,8 @@
     <div class="container-fluid">
       <h4 *ngIf="currentCategoryName">Category: {{ currentCategoryName }}</h4>
       <hr *ngIf="currentCategoryName" />
+      <h4 *ngIf="previousKeyword">Showing {{products.length}} results |  for {{previousKeyword}}</h4>
+      <hr *ngIf="previousKeyword" />
       <div class="row">
         <div *ngFor="let tempProduct of products" class="col-md-3 col-sm-4">
           <div class="product-box">
