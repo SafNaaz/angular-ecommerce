@@ -72,4 +72,29 @@ export class CartService {
     
     console.log('----')
   }
+
+  decrementQuantity(theCartItem : CartItem){
+    theCartItem.quantity--;
+
+    if(theCartItem.quantity === 0){
+      this.remove(theCartItem);
+    }else{
+      this.computeCartTotals();
+    }
+  }
+
+  remove(cartItem: CartItem) {
+    //get index of item in array
+    const itemIndex = this.cartItems.findIndex(tempCartItem =>
+      tempCartItem.id == cartItem.id
+    )
+
+    //if found remove from aray
+    if(itemIndex > -1){
+      this.cartItems.splice(itemIndex, 1);
+
+      this.computeCartTotals();
+    }
+
+  }
 }
