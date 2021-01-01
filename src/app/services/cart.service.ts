@@ -17,7 +17,7 @@ export class CartService {
   addToCart(theCartItem: CartItem){
     //check if we already have item in cart
     let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItem | undefined;
+    let existingCartItem: CartItem | undefined = undefined;
 
     if(this.cartItems.length > 0){
     //find the item of cart based on id
