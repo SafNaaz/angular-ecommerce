@@ -41,7 +41,7 @@
                         <div class="col-md-2"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country" type="text">
+                                <select formControlName="country">
                                     <option value="">TODO</option>
                                 </select>
                             </div>
@@ -67,7 +67,7 @@
                         <div class="col-md-2"><label>State</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="state" type="text">
+                                <select formControlName="state">
                                     <option value="">TODO</option>
                                 </select>
                             </div>
@@ -99,7 +99,7 @@
                         <div class="col-md-2"><label>Country</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="country" type="text">
+                                <select formControlName="country">
                                     <option value="">TODO</option>
                                 </select>
                             </div>
@@ -125,7 +125,7 @@
                         <div class="col-md-2"><label>State</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <select formControlName="state" type="text">
+                                <select formControlName="state">
                                     <option value="">TODO</option>
                                 </select>
                             </div>
@@ -142,37 +142,89 @@
 
                 </div>
 
-                <!-- customer from group -->
-                <div formGroupName="customer" class="form-area">
-                    <h3>Customer</h3>
+                <!-- Credit card -->
+                <div formGroupName="creditCard" class="form-area">
+                    <h3>Credit Card</h3>
 
                     <div class="row">
-                        <div class="col-md-2"><label>First Name</label></div>
+                        <div class="col-md-2"><label>Card Type</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="firstName" type="text">
+                                <select formControlName="cardType">
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label>Last Name</label></div>
+                        <div class="col-md-2"><label>Name On Card</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="lastName" type="text">
+                                <input formControlName="nameOnCard" type="text">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label>Email</label></div>
+                        <div class="col-md-2"><label>Card Number</label></div>
                         <div class="col-md-9">
                             <div class="input-space">
-                                <input formControlName="email" type="text">
+                                <input formControlName="cardNumber" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Security Code</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <input formControlName="securityCode" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Expiration Month</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationMonth">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><label>Expiration Year</label></div>
+                        <div class="col-md-9">
+                            <div class="input-space">
+                                <select formControlName="expirationYear">
+                                    <option *ngFor="let year of creditCardYears">{{ year}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
+                <!-- order details -->
+                <div class="form-area">
+                    <h3>Review Your Order</h3>
+
+                    <p>Total Quantity: {{totalQuantity}}</p>
+                    <p>Shipping: FREE</p>
+                    <p>Total Price: {{totalPrice | currency:'USD'}}</p>
+                </div>
+
+                <!-- submit button -->
                 <div class="text-center">
                     <button type="submit" class="btn btn-info">Purchase</button>
                 </div>
