@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
+import { State } from 'src/app/common/state';
 import { ShopFormService } from 'src/app/services/shop-form.service';
 
 @Component({
@@ -16,6 +18,11 @@ export class CheckoutComponent implements OnInit {
 
   creditCardMonths: number[] = []
   creditCardYears: number[] = [];
+
+  countries : Country[] = [];
+
+  shippingAddressStates : State[] = [];
+  billingAddressStates : State[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private shopFormService: ShopFormService) { }
@@ -60,14 +67,22 @@ export class CheckoutComponent implements OnInit {
       this.creditCardYears = data;
     })
 
+    this.shopFormService.getCountries().subscribe(data =>{
+      this.countries = data;
+    })
+
   }
 
   copyShippingAddressToBillingAddress(event : any){
     if(event.target.checked){
       this.checkoutFormGroup.controls.billingAddress
         .setValue(this.checkoutFormGroup.controls.shippingAddress.value)
+
+      //fix for states
+      this.billingAddressStates = this.shippingAddressStates;
     } else{
       this.checkoutFormGroup.controls.billingAddress.reset();
+      this.billingAddressStates = [];
     }
   }
 
@@ -93,6 +108,22 @@ export class CheckoutComponent implements OnInit {
   onSubmit(){
     console.log("Handling the submit button");
     console.log(this.checkoutFormGroup.get('customer')?.value);
+  }
+
+  getStates(formGroupName: string){
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+
+    const countryCode = formGroup?.value.country.code;
+
+    this.shopFormService.getStates(countryCode).subscribe(data=>{
+      if(formGroupName === 'shippingAddress'){
+        this.shippingAddressStates = data;
+      } else {
+        this.billingAddressStates = data;
+      }
+
+      formGroup?.get('state')?.setValue(data[0]);
+    })
   }
 
 }
