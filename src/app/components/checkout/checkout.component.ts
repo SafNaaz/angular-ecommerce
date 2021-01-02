@@ -36,18 +36,18 @@ export class CheckoutComponent implements OnInit {
         email:['',[Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       }),
       shippingAddress: this.formBuilder.group({
-        street:[''],
-        city:[''],
-        state:[''],
-        country:[''],
-        zipCode:[''],
+        street:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
+        city:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
+        state:['',[Validators.required]],
+        country:['',[Validators.required]],
+        zipCode:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
       }),
       billingAddress: this.formBuilder.group({
-        street:[''],
-        city:[''],
-        state:[''],
-        country:[''],
-        zipCode:[''],
+        street:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
+        city:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
+        state:['',[Validators.required]],
+        country:['',[Validators.required]],
+        zipCode:['',[Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]],
       }),
       creditCard: this.formBuilder.group({
         cardType:[''],
@@ -79,11 +79,31 @@ export class CheckoutComponent implements OnInit {
   }
 
   get lastName(){
-    return this.checkoutFormGroup.get('customer.lasstName')
+    return this.checkoutFormGroup.get('customer.lastName')
   }
 
   get email(){
     return this.checkoutFormGroup.get('customer.email')
+  }
+
+  get shippingAddressStreet(){
+    return this.checkoutFormGroup.get('shippingAddress.street')
+  }
+
+  get shippingAddressCity(){
+    return this.checkoutFormGroup.get('shippingAddress.city')
+  }
+
+  get shippingAddressZipCode(){
+    return this.checkoutFormGroup.get('shippingAddress.zipCode')
+  }
+
+  get shippingAddressState(){
+    return this.checkoutFormGroup.get('shippingAddress.state')
+  }
+
+  get shippingAddressCountry(){
+    return this.checkoutFormGroup.get('shippingAddress.country')
   }
 
   copyShippingAddressToBillingAddress(event : any){
