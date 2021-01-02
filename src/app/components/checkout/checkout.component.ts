@@ -9,6 +9,7 @@ import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { ShopFormService } from 'src/app/services/shop-form.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { ShopValidators } from 'src/app/validators/shop-validators';
 
 @Component({
@@ -35,7 +36,8 @@ export class CheckoutComponent implements OnInit {
               private shopFormService: ShopFormService,
               private cartService: CartService,
               private checkoutService:  CheckoutService,
-              private router : Router) { }
+              private router : Router,
+              private userService: UserService) { }
 
   ngOnInit(): void {
 
@@ -84,7 +86,19 @@ export class CheckoutComponent implements OnInit {
       this.countries = data;
     })
 
+    this.userService.customer.subscribe(value=>{
+      this.checkoutFormGroup.controls['customer'].patchValue({
+        firstName : value.firstName,
+        lastName : value.lastName,
+        email : value.email
+      })
+
+      this.checkoutFormGroup.controls['customer']?.get('firstName')?.disable({ onlySelf: true });
+      this.checkoutFormGroup.controls['customer']?.get('lastName')?.disable({ onlySelf: true });
+      this.checkoutFormGroup.controls['customer']?.get('email')?.disable({ onlySelf: true });
+    });
   }
+
 
   reviewCartDetails() {
     //subscribe to cartService.totalQuantity
