@@ -9,14 +9,16 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import{
   OKTA_CONFIG,
   OktaAuthModule,
-  OktaCallbackComponent
+  OktaCallbackComponent,
+  OktaAuthGuard
 } from '@okta/okta-angular'
 
 import myAppConfig from './config/my-app-config'
 import { LoginComponent } from './components/login/login.component';
+import { MembersPageComponent } from './components/members-page/members-page.component';
 
 const oktaConfig = Object.assign({
-  onAuthRequired : (injector: any) =>{
+  onAuthRequired : (oktaAuth: any, injector: any) =>{
     const router = injector.get(Router);
 
     router.navigate(['/login']);
@@ -24,10 +26,11 @@ const oktaConfig = Object.assign({
 }, myAppConfig.oidc)
 
 const routes: Routes = [
+  {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
 
-  {path: 'checkout', component: CheckoutComponent},
+  {path: 'checkout', component: CheckoutComponent, canActivate: [OktaAuthGuard]},
   {path: 'cart-details', component: CartDetailsComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'search/:keyword', component: ProductListComponent},
