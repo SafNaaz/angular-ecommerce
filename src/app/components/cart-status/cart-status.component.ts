@@ -17,17 +17,6 @@ export class CartStatusComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    
-    const data = localStorage.getItem('cartItems')
-    if (data) {
-      this.cartItems = JSON.parse(data);
-      this.cartService.cartItems = this.cartItems;
-
-      for (let currentCartItem of this.cartItems) {
-        this.totalPrice += currentCartItem.quantity * currentCartItem.unitPrice;
-        this.totalQuantity += currentCartItem.quantity;
-      }
-    }
     this.updateCartStatus();
   }
 
