@@ -35,6 +35,8 @@ export class CartService {
       this.cartItems.push(theCartItem);
     }
 
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+
     //compute cart total prie and total quantity
 
     this.computeCartTotals();
@@ -48,6 +50,8 @@ export class CartService {
       totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
       totalQuantityValue += currentCartItem.quantity;
     }
+
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
     //publish new values to all subsribers
     this.totalPrice.next(totalPriceValue);
