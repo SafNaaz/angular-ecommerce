@@ -6,4 +6,8 @@
 
         <p>Member discounts are coming soon!!</p>
     </div>
+
+    <div *ngIf="customer" class="container">
+        Your Order Tracking number is {{customer?.orders[0]?.orderTrackingNumber}}
+    </div>
 </div>
