@@ -11,7 +11,7 @@ export class MembersPageComponent implements OnInit {
   firstName: string = ''
   lastName: string = ''
   
-  customer: any;
+  // customer: any;
 
   constructor(private userService : UserService) { }
 
@@ -19,10 +19,10 @@ export class MembersPageComponent implements OnInit {
     this.userService.customer.subscribe(value=>{
       this.firstName = value.firstName
       this.lastName = value.lastName
-      this.userService.getOrders(value.email).subscribe(value =>{
-        this.customer = value;
-        console.log(this.customer)
-      })
+      // this.userService.getOrders(value.email).subscribe(value =>{
+      //   this.customer = value;
+      //   console.log(this.customer)
+      // })
     })
 
   }
