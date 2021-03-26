@@ -11,10 +11,22 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0);
 
+  storage: Storage = sessionStorage;
+
   constructor() {
-    const data = localStorage.getItem('cartItems');
-    if (data) {
-      this.cartItems = JSON.parse(data);
+    // const data = localStorage.getItem('cartItems');
+    // if (data) {
+    //   this.cartItems = JSON.parse(data);
+    //   this.computeCartTotals();
+    // }
+
+    //read data from storage
+
+    let data = JSON.parse(this.storage.getItem('cartItems')!);
+
+    if(data != null){
+      this.cartItems = data;
+      //compute totals based on data that is read from storage
       this.computeCartTotals();
     }
   }
@@ -40,7 +52,7 @@ export class CartService {
       this.cartItems.push(theCartItem);
     }
 
-    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    // localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
     //compute cart total prie and total quantity
 
@@ -56,7 +68,7 @@ export class CartService {
       totalQuantityValue += currentCartItem.quantity;
     }
 
-    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    // localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 
     //publish new values to all subsribers
     this.totalPrice.next(totalPriceValue);
@@ -64,6 +76,13 @@ export class CartService {
 
     //
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    //persist cart data
+    this.persistCartItems()
+  }
+
+  persistCartItems(){
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems))
   }
 
   logCartData(totalPriceValue: number, totalQuantityValue: number) {
